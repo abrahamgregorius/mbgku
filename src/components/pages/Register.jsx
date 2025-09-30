@@ -1,6 +1,5 @@
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardAction,
@@ -9,30 +8,41 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { useNavigate } from "react-router-dom";
 
 import AuthLayout from "../Layout/Authlayout";
 import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { loginFormSchema } from "../../validations/auth-validation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import FormInput from "../ui/common/FormInput";
+import { registerFormSchema } from "../../validations/auth-validation";
+import { doc, setDoc } from "firebase/firestore";
 
-const Login = () => {
+const Register = () => {
   const form = useForm({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
   });
   const navigate = useNavigate();
 
-  const signIn = form.handleSubmit(async (values) => {
+  const register = form.handleSubmit(async (values) => {
     try {
-      const { email, password } = values;
-      console.log(email, password);
-      await signInWithEmailAndPassword(auth, email, password);
+      const { name, email, password } = values;
+
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const id = res.user.uid;
+
+      await setDoc(doc(db, "users", id), {
+        name,
+        email,
+        role: "masyarakat",
+      });
+
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -42,19 +52,26 @@ const Login = () => {
     <AuthLayout>
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Register your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your data to create your account
           </CardDescription>
           <CardAction>
-            <Button onClick={() => navigate("/register")} variant="link">
-              Sign Up
+            <Button onClick={() => navigate("/login")} variant="link">
+              Sign In
             </Button>
           </CardAction>
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={signIn} className="space-y-8">
+            <form onSubmit={register} className="space-y-8">
+              <FormInput
+                form={form}
+                label={"Name"}
+                placeholder={"test"}
+                type={"text"}
+                name={"name"}
+              />
               <FormInput
                 form={form}
                 label={"Email"}
@@ -80,4 +97,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
