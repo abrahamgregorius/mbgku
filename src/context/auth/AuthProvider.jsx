@@ -11,22 +11,28 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        const userRef = doc(db, "users", currentUser.uid);
-        const getUser = await getDoc(userRef);
-        if (getUser.exists()) {
-          setRole(getUser.data().role);
+      try {
+        if (currentUser) {
+          setUser(currentUser);
+          const userRef = doc(db, "users", currentUser.uid);
+          const getUser = await getDoc(userRef);
+          if (getUser.exists()) {
+            setRole(getUser.data().role);
+          } else {
+            setRole("unassigned");
+          }
         } else {
-          setRole("unassigned");
+          setUser(null);
+          setRole(null);
         }
-      } else {
+      } catch (error) {
+        console.log(error);
         setUser(null);
         setRole(null);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
