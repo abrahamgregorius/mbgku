@@ -1,31 +1,22 @@
 import { auth } from "../../lib/firebase";
 import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
 
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
 import AuthLayout from "../Layout/Authlayout";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
+import { Form } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import loginFormSchema from "../../validations/login-validation";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import FormInput from "../ui/common/FormInput";
 
 const Login = () => {
   const form = useForm({
@@ -35,12 +26,14 @@ const Login = () => {
       password: "",
     },
   });
-  console.log(auth?.currentUser?.email);
+  const navigate = useNavigate();
 
   const signIn = form.handleSubmit(async (values) => {
     try {
       const { email, password } = values;
-      await createUserWithEmailAndPassword(auth, email, password);
+      console.log(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -54,41 +47,27 @@ const Login = () => {
             Enter your email below to login to your account
           </CardDescription>
           <CardAction>
-            <Button variant="link">Sign Up</Button>
+            <Button onClick={() => navigate("/register")} variant="link">
+              Sign Up
+            </Button>
           </CardAction>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={signIn} className="space-y-8">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        type={"email"}
-                        placeholder="example@gmail.com"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <FormInput
+                form={form}
+                label={"Email"}
+                placeholder={"example@gmail.com"}
+                type={"email"}
+                name={"email"}
               />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>password</FormLabel>
-                    <FormControl>
-                      <Input type="password" placeholder="*******" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <FormInput
+                form={form}
+                name={"password"}
+                label={"Password"}
+                placeholder={"Enter your password"}
+                type={"password"}
               />
               <Button type="submit" className="w-full">
                 Login
