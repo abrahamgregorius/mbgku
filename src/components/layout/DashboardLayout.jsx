@@ -25,7 +25,6 @@ const DashboardLayout = ({ children }) => {
           </div>
           {children}
         </SidebarInset>
-        {/* <SidebarInset></SidebarInset> */}
       </div>
     </div>
   );

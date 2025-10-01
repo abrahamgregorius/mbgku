@@ -38,7 +38,7 @@ const data = {
     },
     {
       title: "Laporan",
-      url: "#",
+      url: "/laporan",
       icon: Bot,
     },
     {
