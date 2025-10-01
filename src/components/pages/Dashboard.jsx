@@ -1,16 +1,24 @@
 import React from "react";
 import DashboardLayout from "../layout/DashboardLayout";
+import AppBarChart from "../ui/common/AppBarChart";
 
 const Dashboard = () => {
   return (
     <DashboardLayout>
-      <div className="flex flex-1 flex-col gap-4 p-4 ">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="bg-pink-200 aspect-video rounded-xl" />
-          <div className="bg-blue-200 aspect-video rounded-xl" />
-          <div className="bg-yellow-200 aspect-video rounded-xl" />
+      <div className="flex flex-col gap-4 p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4 ">
+          <div className="bg-green-200 p-4 rounded-lg"></div>
+          <div className="bg-green-200 p-4 rounded-lg"></div>
+          <div className="bg-green-200 p-4 rounded-lg"></div>
+          <div className="bg-green-200 p-4 rounded-lg"></div>
         </div>
-        <div className="bg-red-300 h-[100vh] flex-1 rounded-xl md:min-h-min"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="p-4 rounded-lg">
+            <AppBarChart></AppBarChart>
+          </div>
+          <div className="bg-green-200 p-4 rounded-lg"></div>
+          <div className="bg-green-200 p-4 rounded-lg col-span-2"></div>
+        </div>
       </div>
     </DashboardLayout>
   );
