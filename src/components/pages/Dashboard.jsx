@@ -3,6 +3,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import AppBarChart from "../ui/common/AppBarChart";
 import CardDashboard from "../ui/common/CardDashboard";
 import { AppAreaChart } from "../ui/common/AppAreaChart";
+import { AreaChartInteractive } from "../ui/common/AreaChartInteractive";
 
 const Dashboard = () => {
   return (
@@ -53,7 +54,9 @@ const Dashboard = () => {
           <div className=" p-4 rounded-lg">
             <AppAreaChart></AppAreaChart>
           </div>
-          <div className="bg-green-200 p-4 rounded-lg col-span-2"></div>
+          <div className="p-4 rounded-lg col-span-2">
+            <AreaChartInteractive></AreaChartInteractive>
+          </div>
         </div>
       </div>
     </DashboardLayout>
