@@ -2,6 +2,7 @@ import React from "react";
 import DashboardLayout from "../layout/DashboardLayout";
 import AppBarChart from "../ui/common/AppBarChart";
 import CardDashboard from "../ui/common/CardDashboard";
+import { AppAreaChart } from "../ui/common/AppAreaChart";
 
 const Dashboard = () => {
   return (
@@ -49,7 +50,9 @@ const Dashboard = () => {
           <div className="p-4 rounded-lg">
             <AppBarChart></AppBarChart>
           </div>
-          <div className="bg-green-200 p-4 rounded-lg"></div>
+          <div className=" p-4 rounded-lg">
+            <AppAreaChart></AppAreaChart>
+          </div>
           <div className="bg-green-200 p-4 rounded-lg col-span-2"></div>
         </div>
       </div>

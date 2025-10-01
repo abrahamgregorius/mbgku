@@ -8,6 +8,13 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "../chart";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "../card";
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -30,25 +37,44 @@ const chartConfig = {
 const AppBarChart = () => {
   return (
     <div>
-      <h1 className="text-lg mb-6">Bar Chart</h1>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-        <BarChart accessibilityLayer data={chartData}>
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <YAxis tickLine={false} tickMargin={10} axisLine={false} />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <ChartLegend content={<ChartLegendContent />} />
+      <Card>
+        <CardHeader>
+          Bar Chart
+          <CardDescription>Showing what </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+            <BarChart accessibilityLayer data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <YAxis tickLine={false} tickMargin={10} axisLine={false} />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend content={<ChartLegendContent />} />
 
-          <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-          <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
-        </BarChart>
-      </ChartContainer>
+              <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
+              <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 leading-none font-medium">
+                Trending up by 5.2% this month{" "}
+              </div>
+              <div className="text-muted-foreground flex items-center gap-2 leading-none">
+                January - June 2024
+              </div>
+            </div>
+          </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 };
