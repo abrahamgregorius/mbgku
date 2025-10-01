@@ -3,9 +3,6 @@ import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 
-require('dotenv').config()
-
-
 function App() {
   return (
     <>
