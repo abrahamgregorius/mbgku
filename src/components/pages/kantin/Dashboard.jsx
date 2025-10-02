@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import DashboardLayout from "../layout/DashboardLayout";
-import CardDashboard from "../ui/common/CardDashboard";
-import { DataTable } from "../ui/common/TableData/DataTable";
-import { columns } from "../ui/common/TableData/Column";
+import DashboardLayout from "../../layout/DashboardLayout";
+import CardDashboard from "../../ui/common/CardDashboard";
+import { DataTable } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/DataTable";
+import { columns } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/Column";
 
 async function getData() {
   return [
@@ -72,7 +72,6 @@ const Dashboard = () => {
     }
     fetchData();
   }, []);
-  console.log(data);
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4 p-4">

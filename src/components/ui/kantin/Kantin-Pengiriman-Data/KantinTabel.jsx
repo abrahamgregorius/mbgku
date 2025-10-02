@@ -9,7 +9,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableCaption,
   TableHead,
   TableHeader,
   TableRow,
@@ -24,10 +23,10 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-export function DataTable({ columns, data }) {
+export function KantinTabel({ columns, data }) {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 7,
+    pageSize: 10,
   });
   const table = useReactTable({
     data,
