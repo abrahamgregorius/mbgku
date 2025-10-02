@@ -4,6 +4,7 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -26,6 +27,7 @@ import {
 } from "lucide-react";
 
 const ProductTable = ({ data, columns }) => {
+  const [columnFilters, setColumnFilters] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -33,18 +35,28 @@ const ProductTable = ({ data, columns }) => {
   const table = useReactTable({
     data,
     columns,
-    state: {
-      pagination,
-    },
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      pagination,
+      columnFilters,
+    },
   });
   return (
     <div>
       <div className="flex flex-col mb-8 mt-4">
         <div className="flex items-center justify-between">
-          <Input placeholder="Search by name..." className={"max-w-sm h-10"} />
+          <Input
+            placeholder="Search by name school..."
+            className={"max-w-sm h-10"}
+            value={table.getColumn("sekolah")?.getFilterValue() ?? ""}
+            onChange={(event) =>
+              table.getColumn("sekolah")?.setFilterValue(event.target.value)
+            }
+          />
         </div>
       </div>
 
