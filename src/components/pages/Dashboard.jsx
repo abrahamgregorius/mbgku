@@ -1,11 +1,78 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "../layout/DashboardLayout";
-import AppBarChart from "../ui/common/AppBarChart";
 import CardDashboard from "../ui/common/CardDashboard";
-import { AppAreaChart } from "../ui/common/AppAreaChart";
-import { AreaChartInteractive } from "../ui/common/AreaChartInteractive";
+import { DataTable } from "../ui/common/TableData/DataTable";
+import { columns } from "../ui/common/TableData/Column";
+
+async function getData() {
+  return [
+    {
+      id: "INV001",
+      status: "Paid",
+      amount: "$250.00",
+      sekolah: "Tarsisius 2 ",
+    },
+    {
+      id: "INV002",
+      status: "Pending",
+      amount: "$150.00",
+      sekolah: "Sekolah A",
+    },
+    {
+      id: "INV003",
+      status: "Unpaid",
+      amount: "$350.00",
+      sekolah: "Sekolah Best",
+    },
+    {
+      id: "INV004",
+      status: "Paid",
+      amount: "$450.00",
+      sekolah: "Credit Card",
+    },
+    {
+      id: "INV005",
+      status: "Paid",
+      amount: "$550.00",
+      sekolah: "PayPal",
+    },
+    {
+      id: "INV006",
+      status: "Pending",
+      amount: "$200.00",
+      sekolah: "Bank Transfer",
+    },
+    {
+      id: "INV007",
+      status: "Unpaid",
+      amount: "$300.00",
+      sekolah: "Credit Card",
+    },
+    {
+      id: "INV007",
+      status: "Unpaid",
+      amount: "$300.00",
+      sekolah: "Credit Card",
+    },
+    {
+      id: "INV007",
+      status: "Unpaid",
+      amount: "$300.00",
+      sekolah: "Credit Card",
+    },
+  ];
+}
 
 const Dashboard = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const fetchedData = await getData();
+      setData(fetchedData);
+    }
+    fetchData();
+  }, []);
+  console.log(data);
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4 p-4">
@@ -47,15 +114,9 @@ const Dashboard = () => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           <div className="p-4 rounded-lg">
-            <AppBarChart></AppBarChart>
-          </div>
-          <div className=" p-4 rounded-lg">
-            <AppAreaChart></AppAreaChart>
-          </div>
-          <div className="p-4 rounded-lg col-span-2">
-            <AreaChartInteractive></AreaChartInteractive>
+            <DataTable columns={columns} data={data}></DataTable>
           </div>
         </div>
       </div>
