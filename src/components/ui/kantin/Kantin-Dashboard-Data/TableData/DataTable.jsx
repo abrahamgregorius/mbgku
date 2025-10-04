@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "../../../button";
 import { useState } from "react";
-import PaginationSelection from "./PaginationSelection";
+import PaginationSelection from "../../PaginationSelection";
 import {
   ChevronLeft,
   ChevronRight,

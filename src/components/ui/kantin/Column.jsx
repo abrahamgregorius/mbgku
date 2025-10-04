@@ -1,4 +1,5 @@
-import { cn } from "../../../../../lib/utils";
+import { cn } from "../../../lib/utils";
+import PengirimanDropDown from "./Kantin-Pengiriman-Data/PengirimanDropDown";
 export const columns = [
   {
     accessorKey: "id",
@@ -7,6 +8,14 @@ export const columns = [
   {
     accessorKey: "sekolah",
     header: "Sekolah",
+  },
+  {
+    accessKey: "sku",
+    header: "SKU",
+  },
+  {
+    accessKey: "supplier",
+    header: "Supplier",
   },
   {
     accessorKey: "status",
@@ -28,7 +37,14 @@ export const columns = [
     },
   },
   {
-    accessorKey: "amount",
-    header: "Amount",
+    accessorKey: "quantity",
+    header: "Quantity",
+  },
+  {
+    accessKey: "action",
+    header: "Action",
+    cell: ({ row }) => {
+      return <PengirimanDropDown row={row}></PengirimanDropDown>;
+    },
   },
 ];

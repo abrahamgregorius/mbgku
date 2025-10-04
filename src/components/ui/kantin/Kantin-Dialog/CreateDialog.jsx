@@ -37,6 +37,7 @@ const CreateDialog = () => {
   });
   const onSubmit = ({ sekolahName, sku, quantity, status, supplier }) => {
     console.log(sekolahName, sku, quantity, status, supplier);
+    form.reset();
   };
   return (
     <Dialog className="h-100">

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../layout/DashboardLayout";
 import CardDashboard from "../../ui/common/CardDashboard";
 import { DataTable } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/DataTable";
-import { columns } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/Column";
+import { columns } from "../../ui/kantin//Column";
 
 async function getData() {
   return [

@@ -1,9 +1,9 @@
 import { Plus } from "lucide-react";
 import { Button } from "../button";
 import { Card, CardContent, CardHeader, CardTitle } from "../card";
-import ProductTable from "./ProductTable";
+import PengirimanTabel from "./Kantin-Pengiriman-Data/PengirimanTabel";
 import { useEffect, useState } from "react";
-import { columns } from "./Kantin-Pengiriman-Data/Column";
+import { columns } from "./Column";
 import CreateDialog from "./Kantin-Dialog/CreateDialog";
 
 // masih data dummy nanti pake useContext aja ya buat kirim data nya:
@@ -86,7 +86,7 @@ const PengirimanComponent = () => {
         <CreateDialog />
       </CardHeader>
       <CardContent>
-        <ProductTable data={data} columns={columns}></ProductTable>
+        <PengirimanTabel data={data} columns={columns}></PengirimanTabel>
       </CardContent>
     </Card>
   );

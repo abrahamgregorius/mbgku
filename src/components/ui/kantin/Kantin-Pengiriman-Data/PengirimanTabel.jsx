@@ -1,5 +1,5 @@
-import { Input } from "../input";
-import { Button } from "../button";
+import { Input } from "../../input";
+import { Button } from "../../button";
 import {
   flexRender,
   getCoreRowModel,
@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 
-import PaginationSelection from "./Kantin-Dashboard-Data/TableData/PaginationSelection";
+import PaginationSelection from "../PaginationSelection";
 import {
   ChevronLeft,
   ChevronRight,
@@ -26,7 +26,7 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-const ProductTable = ({ data, columns }) => {
+const PengirimanTabel = ({ data, columns }) => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -170,4 +170,4 @@ const ProductTable = ({ data, columns }) => {
   );
 };
 
-export default ProductTable;
+export default PengirimanTabel;

@@ -5,8 +5,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../dropdown-menu";
-import { Button } from "../button";
+} from "../../dropdown-menu";
+import { Button } from "../../button";
 import { MoreHorizontal, PencilOff, Trash } from "lucide-react";
 
 const PengirimanDropDown = () => {
