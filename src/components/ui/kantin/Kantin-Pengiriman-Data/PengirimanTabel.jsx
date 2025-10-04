@@ -52,9 +52,9 @@ const PengirimanTabel = ({ data, columns }) => {
           <Input
             placeholder="Search by name school..."
             className={"max-w-sm h-10"}
-            value={table.getColumn("sekolah")?.getFilterValue() ?? ""}
+            value={table.getColumn("sekolahName")?.getFilterValue() ?? ""}
             onChange={(event) =>
-              table.getColumn("sekolah")?.setFilterValue(event.target.value)
+              table.getColumn("sekolahName")?.setFilterValue(event.target.value)
             }
           />
         </div>

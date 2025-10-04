@@ -8,19 +8,30 @@ import {
 } from "../../dropdown-menu";
 import { Button } from "../../button";
 import { MoreHorizontal, PencilOff, Trash } from "lucide-react";
+import { usePengirimanStore } from "../../../../store/usePengirimanStore";
 
-const PengirimanDropDown = () => {
+const PengirimanDropDown = ({ row }) => {
+  const { openDialog, deleteData } = usePengirimanStore();
+  const handleEdit = () => {
+    openDialog("edit", row); // buka modal
+  };
+
+  const handleDelete = () => {
+    deleteData(row.id); // hapus data
+  };
   const menuItems = [
     {
       icon: <PencilOff />,
       label: "Edit",
       className: "",
+      onClick: () => handleEdit(),
     },
     { separator: true },
     {
       icon: <Trash className="text-red-500" />,
       label: "Delete",
       className: "text-red-500",
+      onClick: () => handleDelete(),
     },
   ];
   return (
@@ -39,6 +50,7 @@ const PengirimanDropDown = () => {
             <DropdownMenuItem
               key={index}
               className={`flex items-center gap-1 p-2 ${item.className}`}
+              onClick={item.onClick}
             >
               {item.icon}
               <span>{item.label}</span>

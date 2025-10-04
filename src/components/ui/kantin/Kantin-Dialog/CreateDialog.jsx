@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { createPengirimanSchema } from "../../../../validations/pengiriman-validation";
 import {
@@ -23,6 +23,7 @@ import { Plus } from "lucide-react";
 import { Form, FormField, FormItem, FormLabel } from "../../form";
 import FormInput from "../../common/FormInput";
 import { Separator } from "../../separator";
+import { usePengirimanStore } from "../../../../store/usePengirimanStore";
 
 const CreateDialog = () => {
   const form = useForm({
@@ -35,22 +36,48 @@ const CreateDialog = () => {
       status: "pending",
     },
   });
-  const onSubmit = ({ sekolahName, sku, quantity, status, supplier }) => {
-    console.log(sekolahName, sku, quantity, status, supplier);
+  // zustand
+  const {
+    isDialogOpen,
+    mode,
+    selectedItem,
+    closeDialog,
+    createData,
+    updateData,
+  } = usePengirimanStore();
+
+  useEffect(() => {
+    if (mode === "edit" && selectedItem) {
+      form.reset(selectedItem);
+    } else {
+      form.reset({
+        sekolahName: "",
+        supplier: "",
+        sku: "",
+        quantity: 0,
+        status: "pending",
+      });
+    }
+  }, [mode, selectedItem, form]);
+
+  const onSubmit = (value) => {
+    if (mode === "edit") {
+      updateData(value, selectedItem.id);
+    } else {
+      createData(value);
+    }
     form.reset();
+    closeDialog();
   };
   return (
-    <Dialog className="h-100">
-      <DialogTrigger asChild>
-        <Button className={"h-10"}>
-          Tambah Pengiriman <Plus />
-        </Button>
-      </DialogTrigger>
+    <Dialog open={isDialogOpen} onOpenChange={closeDialog} className="h-100">
       <DialogContent className={"px-7 p-8 "}>
         <DialogHeader>
-          <DialogTitle className={"text-xl"}>Tambah Pengiriman</DialogTitle>
+          <DialogTitle className={"text-xl"}>
+            {mode === "edit" ? "Edit Pengiriman" : "Tambah Pengiriman"}
+          </DialogTitle>
           <DialogDescription>
-            Isi form untuk tambah pengiriman{" "}
+            Isi form untuk {mode === "edit" ? "edit" : "tambah"} pengiriman
           </DialogDescription>
         </DialogHeader>
         <Separator />
@@ -116,7 +143,7 @@ const CreateDialog = () => {
               </div>
               <div className="flex items-center justify-end gap-4">
                 <Button className={"w-[100px] mt-4"} type="submit">
-                  Create
+                  {mode === "edit" ? "Update" : "Create"}
                 </Button>{" "}
               </div>
             </div>
