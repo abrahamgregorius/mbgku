@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../card";
 import ProductTable from "./ProductTable";
 import { useEffect, useState } from "react";
 import { columns } from "./Kantin-Pengiriman-Data/Column";
+import CreateDialog from "./Kantin-Dialog/CreateDialog";
 
 // masih data dummy nanti pake useContext aja ya buat kirim data nya:
 async function getData() {
@@ -82,9 +83,7 @@ const PengirimanComponent = () => {
             <CardTitle className={"font-bold text-2xl"}>Pengiriman</CardTitle>
           </div>
         </div>
-        <Button>
-          Create Pengiriman <Plus />
-        </Button>
+        <CreateDialog />
       </CardHeader>
       <CardContent>
         <ProductTable data={data} columns={columns}></ProductTable>

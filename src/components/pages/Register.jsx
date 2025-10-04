@@ -36,7 +36,6 @@ const Register = () => {
 
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const id = res.user.uid;
-
       await setDoc(doc(db, "users", id), {
         name,
         email,
