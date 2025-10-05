@@ -2,7 +2,7 @@
 
 import {
   BookOpen,
-  Bot,
+  SendHorizontal,
   Command,
   LifeBuoy,
   Send,
@@ -37,19 +37,9 @@ const data = {
       isActive: true,
     },
     {
-      title: "Laporan",
-      url: "/laporan",
-      icon: Bot,
-    },
-    {
-      title: "Berita",
-      url: "#",
-      icon: BookOpen,
-    },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: Settings2,
+      title: "Pengiriman",
+      url: "/pengiriman",
+      icon: SendHorizontal,
     },
   ],
   navSecondary: [

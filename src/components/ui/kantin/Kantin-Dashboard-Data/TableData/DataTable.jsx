@@ -14,9 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "../../button";
+import { Button } from "../../../button";
 import { useState } from "react";
-import PaginationSelection from "./PaginationSelection";
+import PaginationSelection from "../../PaginationSelection";
 import {
   ChevronLeft,
   ChevronRight,
@@ -27,7 +27,7 @@ import {
 export function DataTable({ columns, data }) {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 7,
+    pageSize: 10,
   });
   const table = useReactTable({
     data,
