@@ -1,4 +1,6 @@
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { create } from "zustand";
+import { db } from "../lib/firebase";
 
 export const usePengirimanStore = create((set) => ({
   // --- STATE ---
@@ -25,40 +27,23 @@ export const usePengirimanStore = create((set) => ({
 
   //  -- CRUD FUNC --
   fetchData: async () => {
-    console.log("Fetching data...");
-    // nanti ganti dengan listen realtime dari firebaseCollection
-    const dummyData = [
-      {
-        id: 1,
-        sekolahName: "SMA Harapan",
-        supplier: "PT Beras Makmur",
-        status: "pending",
-        sku: "BR001",
-        quantity: 50,
-      },
-      {
-        id: 2,
-        sekolahName: "SMP Sejahtera",
-        supplier: "CV Padi Nusantara",
-        status: "delivered",
-        sku: "BR002",
-        quantity: 80,
-      },
-      {
-        id: 3,
-        sekolahName: "Binus",
-        supplier: "CV Padi Nusantara",
-        status: "canceled",
-        sku: "BR003",
-        quantity: 80,
-      },
-    ];
-    set({ items: dummyData });
+    const dataDocs = await getDocs(collection(db, "pengiriman"));
+
+    const data = dataDocs.docs.map((item) => ({
+      id: item.id,
+      ...item.data(),
+    }));
+
+    set({ items: data });
   },
   // 4️⃣ Create data baru
   createData: async (newData) => {
-    console.log("Creating shipment:", newData);
-    // nanti tambahkan ke Firestore, lalu fetch ulang
+    try {
+      console.log("Creating shipment:", newData);
+      await addDoc(collection(db, "pengiriman"), newData);
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   // 5️⃣ Update data

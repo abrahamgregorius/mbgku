@@ -1,8 +1,9 @@
 import { cn } from "../../../../../lib/utils";
 export const columns = [
   {
-    accessorKey: "id",
-    header: "Id",
+    accessorKey: "no",
+    header: "No",
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: "sekolahName",

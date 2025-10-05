@@ -2,8 +2,9 @@ import { cn } from "../../../lib/utils";
 import PengirimanDropDown from "./Kantin-Pengiriman-Data/PengirimanDropDown";
 export const columns = [
   {
-    accessorKey: "id",
-    header: "Id",
+    accessorKey: "no",
+    header: "No",
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: "sekolahName",
