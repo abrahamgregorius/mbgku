@@ -3,7 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
 import { create } from "zustand";
@@ -33,15 +33,17 @@ export const usePengirimanStore = create((set) => ({
   },
 
   //  -- CRUD FUNC --
-  fetchData: async () => {
-    const dataDocs = await getDocs(collection(db, "pengiriman"));
+  fetchData: () => {
+    const collectionRef = collection(db, "pengiriman");
+    const unsub = onSnapshot(collectionRef, (snapshot) => {
+      const data = snapshot.docs.map((item) => ({
+        id: item.id,
+        ...item.data(),
+      }));
 
-    const data = dataDocs.docs.map((item) => ({
-      id: item.id,
-      ...item.data(),
-    }));
-
-    set({ items: data });
+      set({ items: data });
+    });
+    return unsub;
   },
   // 4️⃣ Create data baru
   createData: async (newData) => {

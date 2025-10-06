@@ -4,8 +4,20 @@ import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import Dashboard from "./components/pages/kantin/Dashboard";
 import Pengiriman from "./components/pages/kantin/Pengiriman";
+import { usePengirimanStore } from "./store/usePengirimanStore";
+import { useEffect } from "react";
 
 function App() {
+  const { fetchData } = usePengirimanStore();
+  useEffect(() => {
+    const unsubscribeListener = fetchData();
+
+    return () => {
+      console.log("Matikan listener");
+      unsubscribeListener();
+    };
+  }, []);
+
   return (
     <>
       <Routes>

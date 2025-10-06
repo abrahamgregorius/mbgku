@@ -3,13 +3,11 @@ import CardDashboard from "../../ui/common/CardDashboard";
 import { DataTable } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/DataTable";
 import { columns } from "../../ui/kantin/Kantin-Dashboard-Data/TableData/Column";
 import { usePengirimanStore } from "../../../store/usePengirimanStore";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const Dashboard = () => {
-  const { items, fetchData } = usePengirimanStore();
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { items } = usePengirimanStore();
+
   return (
     <DashboardLayout>
       <div className="flex flex-col gap-4 p-4">
