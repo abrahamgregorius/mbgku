@@ -4,6 +4,9 @@ import {
   deleteDoc,
   doc,
   onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
 import { create } from "zustand";
@@ -35,7 +38,8 @@ export const usePengirimanStore = create((set) => ({
   //  -- CRUD FUNC --
   fetchData: () => {
     const collectionRef = collection(db, "pengiriman");
-    const unsub = onSnapshot(collectionRef, (snapshot) => {
+    const q = query(collectionRef, orderBy("createdAt", "asc"));
+    const unsub = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map((item) => ({
         id: item.id,
         ...item.data(),
@@ -48,7 +52,12 @@ export const usePengirimanStore = create((set) => ({
   // 4️⃣ Create data baru
   createData: async (newData) => {
     try {
-      await addDoc(collection(db, "pengiriman"), newData);
+      const data = {
+        ...newData,
+        createdAt: serverTimestamp(),
+      };
+      console.log(data);
+      await addDoc(collection(db, "pengiriman"), data);
     } catch (error) {
       console.error(error);
     }
