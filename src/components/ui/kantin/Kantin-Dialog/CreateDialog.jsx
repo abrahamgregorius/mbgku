@@ -62,7 +62,7 @@ const CreateDialog = () => {
 
   const onSubmit = (value) => {
     if (mode === "edit") {
-      updateData(value, selectedItem.id);
+      updateData(selectedItem.id, value);
     } else {
       createData(value);
     }
