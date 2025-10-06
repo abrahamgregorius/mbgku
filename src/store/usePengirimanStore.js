@@ -1,4 +1,11 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { create } from "zustand";
 import { db } from "../lib/firebase";
 
@@ -39,7 +46,6 @@ export const usePengirimanStore = create((set) => ({
   // 4️⃣ Create data baru
   createData: async (newData) => {
     try {
-      console.log("Creating shipment:", newData);
       await addDoc(collection(db, "pengiriman"), newData);
     } catch (error) {
       console.error(error);
@@ -48,11 +54,19 @@ export const usePengirimanStore = create((set) => ({
 
   // 5️⃣ Update data
   updateData: async (id, updatedData) => {
-    console.log("Updating shipment:", id, updatedData);
+    try {
+      await updateDoc(doc(db, "pengiriman", id), updatedData);
+    } catch (error) {
+      console.error(error);
+    }
   },
 
   // 6️⃣ Delete data
   deleteData: async (id) => {
-    console.log("Deleting shipment:", id);
+    try {
+      await deleteDoc(doc(db, "pengiriman", id));
+    } catch (error) {
+      console.error(error);
+    }
   },
 }));
